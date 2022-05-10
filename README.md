@@ -2,18 +2,17 @@
 A Tic-Tac-Toe web application that allows users to play against our AI server. This is the front-end side of the application bult using ReactJS with TypeScript.
 
 ## Table of Contents
--  [Screens](#screens)
-  -  [Sign Up](#sign-up)
-  -  [Game](#game)
+- [Screens](#screens)
+    - [Sign Up](#sign-up)
+    - [Game](#game)
 -  [AI Server](#ai-server)
-  -  [Authentication](#authentication)
-  -  [Game Engine](#game-engine)
+    - [Authentication](#authentication)
+    - [Game Engine](#game-engine)
 -  [Run App](#run-app)
-  -  [npm start](#npm-start)
-  -  [npm test](#npm-test)
-  -  [npm run build](#npm-run-build)
-  -  [npm run eject](#npm-run-eject)
-
+    - [npm start](#npm-start)
+    - [npm test](#npm-test)
+    - [npm run build](#npm-run-build)
+    - [npm run eject](#npm-run-eject)
 
 ## Screens
 

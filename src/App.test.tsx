@@ -10,7 +10,7 @@ describe('<App />', () => {
 
   test('displays header and game screen on default path /', () => {
     render(<App />, { wrapper: MemoryRouter });
-    expect(screen.getByText('Tic Tac Toe')).toBeInTheDocument;
+    expect(screen.getByText('TicTacToe')).toBeInTheDocument;
     expect(screen.getByText('Game')).toBeInTheDocument;
   });
 
@@ -22,7 +22,7 @@ describe('<App />', () => {
         <App />
       </Router>
     );
-    expect(screen.getByText('Tic Tac Toe')).toBeInTheDocument;
+    expect(screen.getByText('TicTacToe')).toBeInTheDocument;
     expect(screen.getByText('Signup')).toBeInTheDocument;
   });
 
@@ -34,7 +34,7 @@ describe('<App />', () => {
         <App />
       </Router>
     );
-    expect(screen.getByText('Tic Tac Toe')).toBeInTheDocument;
+    expect(screen.getByText('TicTacToe')).toBeInTheDocument;
     expect(screen.getByText('Page Not Found')).toBeInTheDocument;
   });
 });
