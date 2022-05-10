@@ -4,7 +4,7 @@ import './Header.css';
 const Header = () => (
   <header className='py-2 bg-dark container-fluid'>
     <div className='row'>
-      <Link to='/' className='col col-auto'>
+      <Link to='/' className='col col-auto header-link'>
         <div className='row align-items-center'>
           <div className='col'>
             <img

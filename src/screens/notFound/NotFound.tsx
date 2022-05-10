@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
+import ScreenWrapper from '../screeWrapper/ScreenWrapper';
 
 const NotFound = () => (
-  <main>
-    <h1>Page Not Found</h1>
-    <Link to='/'>Play Tic Tac Toe</Link>
-  </main>
+  <ScreenWrapper title={'Page Not Found'}>
+    <Link to='/' className='link-secondary'>Play Tic Tac Toe</Link>
+  </ScreenWrapper>
 );
 
 export default NotFound;
