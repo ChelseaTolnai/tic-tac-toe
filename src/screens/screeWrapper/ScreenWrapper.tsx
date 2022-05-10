@@ -6,7 +6,7 @@
 
 interface WrapperProps {
   title: string;
-  children: JSX.Element
+  children: JSX.Element;
 }
 
 const ScreenWrapper = (props: WrapperProps) => (

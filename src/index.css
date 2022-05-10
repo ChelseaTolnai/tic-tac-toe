@@ -6,3 +6,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.btn-primary {
+  background-color: #00aaff;
+  border-color: #00aaff;
+  font-weight: 600;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  background-color: #0080ff;
+  border-color: #0080ff;
+}

@@ -23,7 +23,7 @@ describe('<App />', () => {
       </Router>
     );
     expect(screen.getByText('TicTacToe')).toBeInTheDocument;
-    expect(screen.getByText('Signup')).toBeInTheDocument;
+    expect(screen.getByText('Sign Up')).toBeInTheDocument;
   });
 
   test('displays header and not found page on any invalid path location', () => {

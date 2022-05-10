@@ -5,6 +5,7 @@ A Tic-Tac-Toe web application that allows users to play against our AI server. T
 - [Screens](#screens)
     - [Sign Up](#sign-up)
     - [Game](#game)
+    - [Page Not Found](#page-not-found)
 -  [AI Server](#ai-server)
     - [Authentication](#authentication)
     - [Game Engine](#game-engine)
@@ -37,6 +38,10 @@ Page Specifications:
 - On any API request a disable/loading spinner is present.
 - API requests to the game engine includes the bearer token in the Authorization header (example “bearer ${token}”).
 - The client side validates server’s response board and announces “You win” / “AI win” or “Draw”. If this is the case the user is  able to “reset” the board and start a new game.
+
+### Page Not Found - `/*`
+
+Simple screen for any other invalid paths potentially entered into url by user. Has a link on page prompting users to go back to main path `/` to play game. 
 
 ## AI Server
 
