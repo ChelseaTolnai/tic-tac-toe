@@ -1,15 +1,16 @@
 import { fireEvent, render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Signup from './Signup';
-import { EmailErrors } from './Signup.utils'
+import { EmailErrors } from './Signup.utils';
 
 describe('<Signup />', () => {
   it('renders without crashing', () => {
-    render(<Signup />);
+    render(<Signup />, { wrapper: MemoryRouter });
   });
 
   describe('Page', () => {
     it('renders heading', () => {
-      const { getByRole } = render(<Signup />);
+      const { getByRole } = render(<Signup />, { wrapper: MemoryRouter });
       const title = getByRole('heading', { level: 1 });
       expect(title).toBeInTheDocument();
       expect(title).toContainHTML('Sign Up');
@@ -21,7 +22,7 @@ describe('<Signup />', () => {
 
     describe('Input', () => {
       test('handles input update', () => {
-        const { getByLabelText } = render(<Signup />);
+        const { getByLabelText } = render(<Signup />, { wrapper: MemoryRouter });
         const input = getByLabelText('Email') as HTMLInputElement;
         
         fireEvent.change(input, {target: {value: validEmail}});
@@ -34,7 +35,7 @@ describe('<Signup />', () => {
 
     describe('Submit', () => {
       test('handle empty email on form submission', () => {
-        const { container, getByLabelText, queryByText } = render(<Signup />);
+        const { container, getByLabelText, queryByText } = render(<Signup />, { wrapper: MemoryRouter });
       
         // No error message should initially be displayed
         expect(queryByText(EmailErrors.EmailRequired)).not.toBeInTheDocument();
@@ -59,7 +60,7 @@ describe('<Signup />', () => {
       });
 
       test('handle invalid emails on form submission', () => {
-        const { getByLabelText, getByRole, queryByText } = render(<Signup />);
+        const { getByLabelText, getByRole, queryByText } = render(<Signup />, { wrapper: MemoryRouter });
         const sumbitBtn = getByRole('button');
         const input = getByLabelText('Email') as HTMLInputElement;
 

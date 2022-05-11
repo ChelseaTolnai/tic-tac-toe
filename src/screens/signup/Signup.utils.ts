@@ -1,9 +1,13 @@
+import axios, { AxiosResponse } from 'axios';
+import { AIServer, AIServerAuthErrors, AIServerAuthResp } from '../../server/server'
+
 export enum EmailErrors {
   EmailRequired = 'Email address is required',
   EmailMissingAt = 'Email address requires "@" character',
   EmailDomainInvalid = 'Email domain after "@" is missing or invalid',
   EmailUserInvalid = 'Email information before "@" is missing or invalid',
-  EmailInvalid = 'Invalid email address'
+  EmailInvalid = 'Invalid email address',
+  EmailAuthFailed = 'Something went wrong, please try again'
 }
 
 const valueExists = (email: string): boolean => !!email.length;
@@ -36,7 +40,7 @@ const validDomain = (email: string): boolean => {
   const domainRegex = /^\w+([.-]?\w+)*(\.\w{2,3})+$/;
   const domain = email.split('@')[1]; // take all string after "@"
   return domainRegex.test(domain);
-}
+};
 
 const validEmail = (email: string): boolean => {
   // email starts with `^` proper user followed by @ symbol and ends with `$` proper domain
@@ -44,7 +48,7 @@ const validEmail = (email: string): boolean => {
   const domainRegex = /\w+([.-]?\w+)*(\.\w{2,3})+/;
   const emailRegex = new RegExp(`^${userRegex.source}@${domainRegex.source}$`);
   return emailRegex.test(email);
-}
+};
 
 export const validateEmail = (email: string): EmailErrors | undefined => {
   // 1) check there is an input value. If no input value display form error of missing email
@@ -71,4 +75,32 @@ export const validateEmail = (email: string): EmailErrors | undefined => {
 
   // if no error return undefined so no error message displays to user
   return undefined;
+};
+
+export const authenticateUser = async (email: string): Promise<EmailErrors | undefined> => {
+  /*  We could aviod hitting AI Server if session token already exists
+      Will remove for now without knowing more details of AI server
+      like if tokens are only valid for a certain period of time
+      or if new tokens are required for each email user
+  */
+  // if (sessionStorage.getItem('tictactoe')) { return undefined };
+
+  try {
+    const response: AxiosResponse<AIServerAuthResp> = await axios.post(`${AIServer}/auth`, { email });
+    if (response?.data?.success && response?.data?.token) {
+      // If successful AI call and response we store the received token in session storage for later page validation
+      sessionStorage.setItem('tictactoe', response.data.token);
+      return undefined;
+    } else {
+      throw new Error();
+    }
+  } catch (error: any) {
+    // In theory our email validation should avoid hitting AI Server before any of these error could occur
+    const errorMessage = (error?.response?.data as AIServerAuthResp | undefined)?.error;
+    if (errorMessage === AIServerAuthErrors.EmailPropRequired || errorMessage === AIServerAuthErrors.EmailRequired) { return EmailErrors.EmailRequired };
+    if (errorMessage === AIServerAuthErrors.EmailInvalid) { return EmailErrors.EmailInvalid };
+
+    // Return default error message
+    return EmailErrors.EmailAuthFailed;
+  }
 };

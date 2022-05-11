@@ -26,8 +26,9 @@ Page Specifications:
 - Validates users email before sending to the /auth API
 - Stores the token in the session storage, the game engine (a protected route) will redirect to the signup page if lost.
 
-Notes:
+Stretch Goals:
 - For the sake of this small application wrote fairly simple regex test to validate email input. For completeness, can research RFC 2822 compliant regex and use instead if desired. Could also confirm with API server which regex they are using to validate emails before providing token and use same validation for symmetry. 
+- New token is received every time form is submitted. We could aviod hitting AI Server if session token already exists. However, leaving in without knowing more details of AI server like if tokens are only valid for a certain period of time or if new tokens are required for each email user
 
 ### Game - `/game`
 
