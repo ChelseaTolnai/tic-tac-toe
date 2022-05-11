@@ -26,6 +26,9 @@ Page Specifications:
 - Validates users email before sending to the /auth API
 - Stores the token in the session storage, the game engine (a protected route) will redirect to the signup page if lost.
 
+Notes:
+- For the sake of this small application wrote fairly simple regex test to validate email input. For completeness, can research RFC 2822 compliant regex and use instead if desired. Could also confirm with API server which regex they are using to validate emails before providing token and use same validation for symmetry. 
+
 ### Game - `/game`
 
 This screen is the game screen (if you don’t know this game, read the [wiki](https://en.wikipedia.org/wiki/Tic-tac-toe)). The user always starts and they are the “X” and the API always goes second with “O”. 

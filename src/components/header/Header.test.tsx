@@ -11,7 +11,7 @@ describe('<Header />', () => {
   test('Logo Text link renders as anchor tag', () => {
     render(<Header />, { wrapper: MemoryRouter });
     const logoLink = screen.getByRole('link');
-    expect(logoLink).toBeInTheDocument;
+    expect(logoLink).toBeInTheDocument();
     expect(logoLink).toContainHTML('TicTacToe');
     expect(logoLink).toHaveAttribute('href', '/');
   });
@@ -25,12 +25,12 @@ describe('<Header />', () => {
       </Router>
     );
     const logoLink = screen.getByRole('link');
-    expect(logoLink).toBeInTheDocument;
+    expect(logoLink).toBeInTheDocument();
     expect(history.location.pathname).toEqual('/invalidPath');
 
     // Click Logo Text link
     fireEvent.click(logoLink);
-    expect(logoLink).toBeInTheDocument;
+    expect(logoLink).toBeInTheDocument();
     expect(history.location.pathname).toEqual('/');
   });
 });
