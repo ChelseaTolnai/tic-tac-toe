@@ -28,7 +28,7 @@ Page Specifications:
 
 Stretch Goals:
 - For the sake of this small application wrote fairly simple regex test to validate email input. For completeness, can research RFC 2822 compliant regex and use instead if desired. Could also confirm with API server which regex they are using to validate emails before providing token and use same validation for symmetry. 
-- New token is received every time form is submitted. We could aviod hitting AI Server if session token already exists. However, leaving in without knowing more details of AI server like if tokens are only valid for a certain period of time or if new tokens are required for each email user
+- New token is received every time form is submitted. We could aviod hitting AI Server if session token already exists. However, leaving in without knowing more details of AI server like if tokens are only valid for a certain period of time or if new tokens are required for each email user.
 
 ### Game - `/game`
 
@@ -42,6 +42,9 @@ Page Specifications:
 - On any API request a disable/loading spinner is present.
 - API requests to the game engine includes the bearer token in the Authorization header (example “bearer ${token}”).
 - The client side validates server’s response board and announces “You win” / “AI win” or “Draw”. If this is the case the user is  able to “reset” the board and start a new game.
+
+Stretch Goals:
+- Add a signout button in the header that removes the token from session storage
 
 ### Page Not Found - `/*`
 

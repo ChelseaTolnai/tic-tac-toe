@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import ScreenWrapper from '../screeWrapper/ScreenWrapper';
+import ScreenWrapper from '../screenWrapper/ScreenWrapper';
 
 const NotFound = () => (
   <ScreenWrapper title={'Page Not Found'}>

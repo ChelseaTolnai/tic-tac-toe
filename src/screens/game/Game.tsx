@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ScreenWrapper from '../screeWrapper/ScreenWrapper';
+import ScreenWrapper from '../screenWrapper/ScreenWrapper';
+import Board, { BoardType } from '../../components/board/Board';
 
 const Game = () => {
   const navigate = useNavigate();
@@ -12,11 +13,20 @@ const Game = () => {
     };
   });
 
+  const board: BoardType  = [
+    [ 'X', 'X', '' ],
+    [ 'O', 'O', 'X' ],
+    [ 'O', '', 'X' ]
+  ];
+  const onSquareClick = () => console.log('click');
+
   return (
     <ScreenWrapper title={`Let's Play!`}>
-      <div>Board</div>
+      <Board 
+        board={board}
+        onSquareClick={onSquareClick}
+      />
     </ScreenWrapper>
-
   );
 };
 

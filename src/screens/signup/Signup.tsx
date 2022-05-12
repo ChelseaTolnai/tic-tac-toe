@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ScreenWrapper from '../screeWrapper/ScreenWrapper';
+import ScreenWrapper from '../screenWrapper/ScreenWrapper';
 import SignupForm from '../../components/signupForm/SignupForm';
 import { authenticateUser, EmailErrors, validateEmail } from './Signup.utils';
 
