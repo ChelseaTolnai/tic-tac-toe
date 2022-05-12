@@ -8,7 +8,7 @@ interface SignupFormProps {
 }
 
 const SignupForm = (props: SignupFormProps) => (
-  <div className='row justify-content-center m-3'>
+  <div className='row justify-content-center m-3 mt-5'>
     <form
       name='emailForm'
       noValidate // overrides bootstrap and browser default validation

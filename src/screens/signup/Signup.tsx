@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ScreenWrapper from '../screenWrapper/ScreenWrapper';
 import SignupForm from '../../components/signupForm/SignupForm';
+import Loading from '../../components/loading/Loading';
 import { authenticateUser, EmailErrors, validateEmail } from './Signup.utils';
 
 const Signup = () => {
   const [emailValue, setEmailValue] = useState('');
   const [emailError, setEmailError] = useState<EmailErrors | undefined>(undefined);
+  const [authIsLoading, setAuthLoading] = useState(false);
   const navigate = useNavigate();
 
   // Use React to write the form as a controlled component and handle email input
@@ -27,6 +29,7 @@ const Signup = () => {
       // if email error refocus user to input to re-enter email
       document.getElementById('emailInput')?.focus();
     } else {
+      setAuthLoading(true);
       // if no email validation error hit /auth API to receive token
       const authError = await authenticateUser(emailValue); // returns error string or undefined if no error
       // if authentication error set error message
@@ -36,17 +39,20 @@ const Signup = () => {
       if (!authError) {
         navigate('/');
       }
+      setAuthLoading(false);
     }
   };
 
   return (
-    <ScreenWrapper title={'Sign Up'}>
-      <SignupForm
-        emailError={emailError}
-        emailValue={emailValue}
-        handleInput={handleInput}
-        handleSumbit={handleSumbit}
-      />
+    <ScreenWrapper title={authIsLoading ? 'Authenticating' : 'Sign Up'}>
+      {authIsLoading ? <Loading/> : (
+        <SignupForm
+          emailError={emailError}
+          emailValue={emailValue}
+          handleInput={handleInput}
+          handleSumbit={handleSumbit}
+        />
+      )}
     </ScreenWrapper>
   );
 };
