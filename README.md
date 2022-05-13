@@ -43,9 +43,13 @@ Page Specifications:
 - API requests to the game engine includes the bearer token in the Authorization header (example “bearer ${token}”).
 - The client side validates server’s response board and announces “You win” / “AI win” or “Draw”. If this is the case the user is  able to “reset” the board and start a new game.
 
+Logic Notes: 
+
 Stretch Goals:
 - Add a signout button in the header that removes the token from session storage and navigates user to signup page.
 - Add tests for all loading spinner states. For sake of assignment did not add test to AI calls as likely in real-time app API calls and other actions requiring loading state should take a short enough time that spinner disrupts user experience more then it helps. Ideally would only use spinner on actions over say 2 seconds.
+- Add tests for AI Engine and resulting board, winner, and reset button updates. 
+- Highlight the winning squares.
 
 ### Page Not Found - `/*`
 

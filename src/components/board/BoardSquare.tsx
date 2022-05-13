@@ -20,9 +20,9 @@ const Square = (props: SquareProps) => {
 
   const squareStylesAll = 'square col m-0 p-0 d-flex fw-bold justify-content-center align-items-center';
   const squareStylesBorder = `border border-dark border-3 ${borderRow[row]} ${borderCol[col]}`;
-  const squareStylesHover = !!isHovered ? 'bg-primary' : '';
+  const squareStylesHover = !!isHovered && !disabled ? 'bg-primary' : '';
   const squareStylesPlayer = `text-${value === 'X' ? 'primary' : 'secondary'}`;
-  const squareStylesTaken = !!value ? 'square-taken' : '';
+  const squareStylesTaken = !!value || disabled ? 'square-taken' : '';
 
   return (
     <button
