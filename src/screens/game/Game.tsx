@@ -5,7 +5,8 @@ import ScreenWrapper from '../screenWrapper/ScreenWrapper';
 import Loading from '../../components/loading/Loading';
 import Board, { BoardType } from '../../components/board/Board';
 import { SquarePosition } from '../../components/board/BoardSquare';
-import { checkIfWinner, getAIPlayPosition, getAIPlayResponse, resetTally } from './Game.utils';
+import { getAIPlayResponse } from '../../datasources/aiServer';
+import { checkIfWinner, getAIPlayPosition, resetTally } from './Game.utils';
 
 let gameMoves = 0;
 

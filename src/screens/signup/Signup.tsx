@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import ScreenWrapper from '../screenWrapper/ScreenWrapper';
 import SignupForm from '../../components/signupForm/SignupForm';
 import Loading from '../../components/loading/Loading';
-import { authenticateUser, EmailErrors, validateEmail } from './Signup.utils';
+import { authenticateUser } from '../../datasources/aiServer';
+import { EmailErrors, validateEmail } from './Signup.utils';
 
 const Signup = () => {
   const [emailValue, setEmailValue] = useState('');

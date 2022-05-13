@@ -1,5 +1,3 @@
-import axios, { AxiosResponse } from 'axios';
-import { AIServer, AIServerPlayResp } from '../../server/server';
 import { BoardType } from '../../components/board/Board';
 import { SquarePosition } from '../../components/board/BoardSquare';
 
@@ -13,14 +11,14 @@ let d2Tally = [0, 0];
 export const checkIfWinner = (playerIndex: number, rowIndex: number, colIndex: number): boolean => {
   rowTally[playerIndex][rowIndex]++;
   colTally[playerIndex][colIndex]++;
-  if (rowIndex === colIndex) { d1Tally[playerIndex]++; }; // is in "\" diagnal for positions at [row, col] of [0,0] & [1,1] & [2,2]
-  if (rowIndex + colIndex === 2) { d2Tally[playerIndex]++; }; // is in "/" diagnal for positions at [row, col] of [0,2] & [1,1] & [2,0]
-  if ( rowTally[playerIndex][rowIndex] === 3
-    || colTally[playerIndex][colIndex] === 3
-    || d1Tally[playerIndex] === 3
-    || d2Tally[playerIndex] === 3
-  ) { return true; }
-  return false;
+  if (rowIndex === colIndex) { d1Tally[playerIndex]++; }; // is in "\" diagonal for positions at [row, col] of [0,0] & [1,1] & [2,2]
+  if (rowIndex + colIndex === 2) { d2Tally[playerIndex]++; }; // is in "/" diagonal for positions at [row, col] of [0,2] & [1,1] & [2,0]
+  if ( rowTally[playerIndex][rowIndex] === 3 // given row reached 3 squares for player
+    || colTally[playerIndex][colIndex] === 3 // given column reached 3 squares for player
+    || d1Tally[playerIndex] === 3 // given "\" diagonal reached 3 squares for player
+    || d2Tally[playerIndex] === 3 // given "/" diagonal reached 3 squares for player
+  ) { return true; } // return winner found
+  return false; // return no winner yet
 };
 
 export const resetTally = () => {
@@ -36,25 +34,8 @@ export const getAIPlayPosition = (aiBoard: BoardType, userBoard: BoardType): Squ
     if (userBoard[i][j] !== val) { // find where new ai val exist against user board
       aiPos.row = i;
       aiPos.col = j;
+      return;
     }
   }));
   return aiPos;
 }
-
-export const getAIPlayResponse = async (board: BoardType): Promise<BoardType> => {
-  try {
-    const token = sessionStorage.getItem('tictactoe');
-    if (!token) { throw new Error('missing token'); }
-
-    const headers = { Authorization: `bearer ${token}` };
-    const response: AxiosResponse<AIServerPlayResp> = await axios.post(`${AIServer}/engine`, { board }, { headers });
-    if (response?.data?.success && response?.data?.board) {
-      return response?.data?.board;
-    } else {
-      throw new Error();
-    }
-  } catch (e) {
-    // Return original board back to user. Will check if original board matches and will provide user generic error
-    return board;
-  }
-};
