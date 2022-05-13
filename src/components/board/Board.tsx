@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Board.css';
 import Square, { SquarePosition } from './BoardSquare';
 
@@ -13,6 +13,9 @@ export interface BoardProps {
 const Board = (props: BoardProps) => {
   // Use initial value of -1 to indicate none of the indexed board items are hovered on
   const [squareHovered, setSquareHovered] = useState({ row: -1, col: -1 });
+  useEffect(() => {
+    setSquareHovered(({ row: -1, col: -1 }));
+  }, [props.disabled])
 
   const onSquareHover = (square: SquarePosition) => {
     setSquareHovered(square);

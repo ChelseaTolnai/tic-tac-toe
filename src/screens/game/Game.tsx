@@ -5,7 +5,7 @@ import ScreenWrapper from '../screenWrapper/ScreenWrapper';
 import Loading from '../../components/loading/Loading';
 import Board, { BoardType } from '../../components/board/Board';
 import { SquarePosition } from '../../components/board/BoardSquare';
-import { checkIfWinner, getAIPlayPosition, getAIPlayResponse } from './Game.utils';
+import { checkIfWinner, getAIPlayPosition, getAIPlayResponse, resetTally } from './Game.utils';
 
 let gameMoves = 0;
 
@@ -78,6 +78,14 @@ const Game = () => {
     };
   };
 
+  const resetBoard = () => {
+    gameMoves = 0;
+    resetTally();
+    setDisabled(false);
+    setGameResults('');
+    setBoard(initBoard);
+  }
+
   return (
     <ScreenWrapper title={authIsLoading ? 'Authenticating' : `Let's Play!`}>
       {(authIsLoading || playIsLoading) ? <Loading /> : (
@@ -88,7 +96,12 @@ const Game = () => {
             onSquareClick={onSquareClick}
           />
           {error && <div className={'text-danger my-3'}>Something went wrong, please try again.</div>}
-          {results && <h2 className={'mt-3'}>{results}</h2>}
+          {results && (
+            <>
+              <h2 className='mt-3 fw-bold'>{results}</h2>
+              <button className='btn btn-primary mt-3 fs-4' onClick={resetBoard}>New Game</button>
+            </>
+          )}
         </>
       )}
     </ScreenWrapper>

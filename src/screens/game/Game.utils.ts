@@ -5,10 +5,10 @@ import { SquarePosition } from '../../components/board/BoardSquare';
 
 // Represents [User, AI] where User/AI is a tally of how many squares are in said indexed area
 // See Game Page - Logic Notes of README.md for further explaination
-const rowTally = [[0, 0, 0], [0, 0, 0]];
-const colTally = [[0, 0, 0], [0, 0, 0]];
-const d1Tally = [0, 0];
-const d2Tally = [0, 0];
+let rowTally = [[0, 0, 0], [0, 0, 0]];
+let colTally = [[0, 0, 0], [0, 0, 0]];
+let d1Tally = [0, 0];
+let d2Tally = [0, 0];
 
 export const checkIfWinner = (playerIndex: number, rowIndex: number, colIndex: number): boolean => {
   rowTally[playerIndex][rowIndex]++;
@@ -22,6 +22,13 @@ export const checkIfWinner = (playerIndex: number, rowIndex: number, colIndex: n
   ) { return true; }
   return false;
 };
+
+export const resetTally = () => {
+  rowTally = [[0, 0, 0], [0, 0, 0]];
+  colTally = [[0, 0, 0], [0, 0, 0]];
+  d1Tally = [0, 0];
+  d2Tally = [0, 0];
+}
 
 export const getAIPlayPosition = (aiBoard: BoardType, userBoard: BoardType): SquarePosition => {
   const aiPos: SquarePosition = { row: -1, col: -1 };
