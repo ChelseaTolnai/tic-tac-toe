@@ -24,14 +24,23 @@ A Tic-Tac-Toe web application that allows users to play against our AI server. T
 ## File Structure
 The application follows the typical react pattern a root directory and pulic and src folders within the root.
 -  **Root**: Contains _README.md_, _package.json_, _.gitignore_, and _.env_
-    - _.env_: Does store `REACT_APP_AI_URL_DEV` variable which is equal to the dev server url mentioned below. Application assumes `REACT_APP_AI_URL_PROD` url would be stored in hosting application's environment variables.
-    - **/public**: Contain _index.html_, _manifest.json_, _robots.txt_, and application icons. 
-        - _robots.txt_: Allow all robots complete access
-    - **/src**: Contain typical _index.css_, _index.tsx_, _App.tsx_, _App.test.tsx_, and remaining folders for application including our images, components, screens, and datasources.
-        - _/components_: Contains a folder for each component type which will include the component file itself and may also include it's corresponding .test and .css files. If the application scaled up and component files became more cumbersome would consider adding .type.ts files to the folder to store corresponding types for that component. For now theey remain in line with component .tsx files. Components are generally stateless and rely on props from screen and are mostly for styling and rendering content. See [Components](#components) for more details on each components.
-        - _/datasources_: contains API files that would handle axios calls and typing for each API request and response. In this application we only use the `AI Server` api. See [AI Server](#ai-server) for more details.
-        - _/images_: contains image files used throughout application
-        - _/screens_: contains the application pages screens. Screen folder contains screen components may may include corresponding .test and .utils file for said component. Screen components for the most part handle the state for the page and pass down to children page components to render and do not handle much if any of the styling. See [Screens](#screens) for more details.
+
+	-  **_.env_**: Does store `REACT_APP_AI_URL_DEV` variable which is equal to the dev server url mentioned below. Application assumes `REACT_APP_AI_URL_PROD` url would be stored in hosting application's environment variables.
+
+	-  **/public**: Contain _index.html_, _manifest.json_, _robots.txt_, and application icons.
+
+		-  **_robots.txt_**: Allow all robots complete access
+
+	-  **/src**: Contain typical _index.css_, _index.tsx_, _App.tsx_, _App.test.tsx_, and remaining folders for application including our images, components, screens, and datasources.
+
+		-  **/components**: Contains a folder for each component type which will include the component file itself and may also include it's corresponding .test and .css files. If the application scaled up and component files became more cumbersome would consider adding .type.ts files to the folder to store corresponding types for that component. For now theey remain in line with component .tsx files. Components are generally stateless and rely on props from screen and are mostly for styling and rendering content. See [Components](#components) for more details on each components.
+
+		-  **/datasources**: Contains API files that would handle axios calls and typing for each API request and response. In this application we only use the `AI Server` api. See [AI Server](#ai-server) for more details.
+
+		-  **/images**: contains image files used throughout application
+
+		-  **/screens**: contains the application pages screens. Screen folder contains screen components may may include corresponding .test and .utils file for said component. Screen components for the most part handle the state for the page and pass down to children page components to render and do not handle much if any of the styling. See [Screens](#screens) for more details.
+
 
 ## Components
 
@@ -73,7 +82,7 @@ Server will respond with a bearer token that will be used for requests to the ga
 #### Stretch Goals:
 > For the sake of this small application wrote fairly simple regex test to validate email input. For completeness, can research RFC 2822 compliant regex and use instead if desired. Could also confirm with API server which regex they are using to validate emails before providing token and use same validation for symmetry. 
 
-> New token is received every time form is submitted. We could aviod hitting AI Server if session token already exists. However, leaving in without knowing more details of AI server like if tokens are only valid for a certain period of time or if new tokens are required for each email user.
+> New token is received every time form is submitted. We could avoid hitting AI Server if session token already exists. However, leaving in without knowing more details of AI server like if tokens are only valid for a certain period of time or if new tokens are required for each email user.
 
 ### Game - `/game`
 
@@ -99,7 +108,7 @@ So example board would look as follows:
 ```
 When a user clicks on an empty square we know that user's position at `{rowIndex: number, colIndex: number}` or corresponding `board[rowIndex][colIndex]`. We update the board value according. 
 
-Besides board value we will also track the global variable of `gameMoves` . `gameMoves` is an integer starting at 0 which is incremented by `1` every time the user or AI makes a move. If at any point after updating user and we have reached the last game move with no winner we know we have reached a "DRAW" and do not have to proceed with AI call. 
+Besides board value we will also track a global variable of `gameMoves` . `gameMoves` is an integer starting at `0` which is incremented by `1` every time the user or AI makes a move. If at any point after updating user and we have reached the last game move with no winner we know we have reached a "DRAW" and do not have to proceed with AI call. 
 
 Lastly we track the "Tally Count" of the rows, columns, and diagonals for the User and AI every time a player makes a move.
 ```
@@ -114,15 +123,15 @@ Each time a player makes a move the player's corresponding row/column/diagonal t
 
 > I chose to use this tally count checker logic in this way to minimize the run time as much as possible. Whenever a user makes a move the winner check time is down to `O(1)` because we are simple checking direct variable values at a given index as opposed to say mapping through some potential possible winning array combination. The space is `O(k)` where k is the contant of the number of rows, columns, and diagonals. When the AI makes a move the same run time to check the winner applies but an added run time to find the AI's position is `O(n)` where n is the length of the game board.
 
-Then order of events proceeds as follows: 
+**Then order of events proceeds as follows:**
 
-1) Update board state with user's choice. `board[user.rowIndex][user.colIndex]`
+**1) Update board state with user's choice.** `board[user.rowIndex][user.colIndex]`
 
 So say we start with empty board `[[ "", "", "" ], [ "", "", "" ], [ "", "", "" ]]` and user selects first square `[0,0]`. Board is updated to `[[ "X", "", "" ], [ "", "", "" ], [ "", "", "" ]]`. `gameMoves` is also incremented by `1`.
 
 If after user moves we reach max game moves `gameMoves === 9` we have hit a DRAW and logic ends here. 
 
-2) Update our Tally Counts for position of User (index of 0) and check if winner.
+**2) Update our Tally Counts for position of User (index of 0) and check if winner.**
 
 So in above example where user selects first square `[0,0]`. Tally counts are updated to:
 ```
@@ -134,7 +143,7 @@ d2Tally = [0, 0];
 Because square `[0,0]` is in the 0th row, the 0th col, and the first `\` diagonal. 
 We check if correspondong 0th row, 0th col, and first `\` diagonal reached `3`. If so USER WINS and logic ends here. If not game proceeds.
 
-3) Update board state with AI's choice after user has selected.
+**3) Update board state with AI's choice after user has selected.**
 
 We call AI Server API and receive a new board including AI's new value. 
 
@@ -142,7 +151,7 @@ For example say, `[[ "X", "O", "" ], [ "", "", "" ], [ "", "", "" ]]`. Game boar
 
 We do check for AI API errors and if error thrown the board value that was sent to AI (aka user board) is returned as AI's response. So if ai board and user board are one in the same we know an error occurred. When this happens we reset the game board back to the state it was _before_ the **user** played, `gameMoves` is also deccremented by `1`, and the player can attempt to make the move again to retrigger API attempt. An error message is displayed to user.
 
-4) Update our Tally Counts for position of AI (index of 1) and check if winner
+**4) Update our Tally Counts for position of AI (index of 1) and check if winner**
 
 In order to update Tally Counts we need to deteremine what the AI's position was from the board response. We do this by going through AI's board response values and check each square value against previous user board's corresponding square value. When they don't match we know the AI's position by the mapped row and col index. 
 
