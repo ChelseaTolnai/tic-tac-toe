@@ -1,5 +1,7 @@
-import { fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import Board, { BoardType } from './Board';
+
+afterEach(cleanup);
 
 describe('<Board />', () => {
   const board: BoardType = [
@@ -9,6 +11,7 @@ describe('<Board />', () => {
   ];
   const props = {
     board,
+    disabled: false,
     onSquareClick: () => {}
   }
 

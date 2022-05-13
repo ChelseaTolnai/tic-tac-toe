@@ -4,13 +4,15 @@ import Square, { SquarePosition } from './BoardSquare';
 
 export type BoardType = ('X' | 'O' | '')[][];
 
-interface BoardProps {
+export interface BoardProps {
   board: BoardType;
-  onSquareClick: () => void;
+  disabled: boolean;
+  onSquareClick: (squarePosition: SquarePosition) => void;
 }
 
 const Board = (props: BoardProps) => {
-  const [squareHovered, setSquareHovered] = useState({row: -1, col: -1});
+  // Use initial value of -1 to indicate none of the indexed board items are hovered on
+  const [squareHovered, setSquareHovered] = useState({ row: -1, col: -1 });
 
   const onSquareHover = (square: SquarePosition) => {
     setSquareHovered(square);
@@ -22,8 +24,9 @@ const Board = (props: BoardProps) => {
 
   return (
     <div className='container mt-5'>
-      {
+      { // map through first set of board array and obtain row index and row values aka columns
         props.board.map((rowVals, row) => (
+          // map through nested set of board array and obtain column index and player value
           <div key={`row-${row}`} className='row row-cols-auto justify-content-center'>
             {rowVals.map((squareVal, col) => (
               <Square
@@ -34,6 +37,7 @@ const Board = (props: BoardProps) => {
                 onSquareClick={props.onSquareClick}
                 onSquareHover={onSquareHover}
                 offSquareHover={offSquareHover}
+                disabled={props.disabled}
               />
             ))}
           </div>

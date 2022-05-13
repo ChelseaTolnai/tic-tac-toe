@@ -1,7 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import NotFound from './NotFound';
+
+afterEach(cleanup);
 
 describe('<NotFound />', () => {
   it('renders without crashing', () => {

@@ -1,6 +1,8 @@
-import { render } from '@testing-library/react';
+import { cleanup, render } from '@testing-library/react';
 import SignupForm from './SignupForm';
-import { EmailErrors } from '../../screens/signup/Signup.utils'
+import { EmailErrors } from '../../screens/signup/Signup.utils';
+
+afterEach(cleanup);
 
 describe('<SignupForm />', () => {
   const props = {

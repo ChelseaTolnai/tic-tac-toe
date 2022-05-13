@@ -1,7 +1,9 @@
-import { fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Signup from './Signup';
 import { EmailErrors } from './Signup.utils';
+
+afterEach(cleanup);
 
 describe('<Signup />', () => {
   it('renders without crashing', () => {

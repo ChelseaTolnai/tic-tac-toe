@@ -1,16 +1,18 @@
+// Represents the corresponding indexes from BoardType
 export interface SquarePosition { row: number; col: number; }
 
 export interface SquareProps {
   squarePosition: SquarePosition;
   value: string;
   isHovered: boolean;
-  onSquareClick: () => void;
+  disabled: boolean;
+  onSquareClick: (squarePosition: SquarePosition) => void;
   onSquareHover: (squarePosition: SquarePosition) => void;
   offSquareHover: (event: React.MouseEvent | React.FocusEvent ) => void;
 }
 
 const Square = (props: SquareProps) => {
-  const { squarePosition, value, isHovered, onSquareClick, onSquareHover, offSquareHover } = props;
+  const { squarePosition, value, isHovered, disabled, onSquareClick, onSquareHover, offSquareHover } = props;
   const { row, col } = squarePosition;
 
   const borderRow = ['border-top-0', '', 'border-bottom-0'];
@@ -34,11 +36,12 @@ const Square = (props: SquareProps) => {
       `}
       // disable onClick so user cannot reselect taken square
       // chose not to use disable prop on button so that MouseEvents would still trigger for "disabled" squares
-      onClick={!value ? onSquareClick : undefined}
+      onClick={!value ? () => onSquareClick(squarePosition) : undefined}
       onFocus={() => onSquareHover(squarePosition)}
       onMouseOver={() => onSquareHover(squarePosition)}
       onMouseLeave={offSquareHover}
       onBlur={offSquareHover}
+      disabled={disabled} // only using for the 300 ms delay after user selects before hitting AI
     >
       {value}
     </button>

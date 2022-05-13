@@ -45,7 +45,7 @@ Page Specifications:
 
 Stretch Goals:
 - Add a signout button in the header that removes the token from session storage and navigates user to signup page.
-- Add tests for all laoding spinner states. For sake of assignment did not add test as likely in real-ti,e app API calls and other actions requiring loading state should take a short enough time that spinner disrupts user experience more then it helps. Ideally would only use spinner on actions over say 2 seconds.
+- Add tests for all loading spinner states. For sake of assignment did not add test to AI calls as likely in real-time app API calls and other actions requiring loading state should take a short enough time that spinner disrupts user experience more then it helps. Ideally would only use spinner on actions over say 2 seconds.
 
 ### Page Not Found - `/*`
 

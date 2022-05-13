@@ -1,7 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { MemoryRouter, Router } from 'react-router-dom';
 import Header from './Header';
+
+afterEach(cleanup);
 
 describe('<Header />', () => {
   it('renders without crashing', () => {

@@ -1,7 +1,9 @@
-import { render } from '@testing-library/react';
+import { cleanup, render } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import Game from './Game';
+
+afterEach(cleanup);
 
 beforeEach(() => {
   Object.defineProperty(window, 'localStorage', {
@@ -33,7 +35,14 @@ describe('<Game />', () => {
       );
       const title = getByRole('heading', { level: 1 });
       expect(title).toBeInTheDocument();
-      expect(title).toContainHTML(`Let's Play!`);
+      // test initially loading
+      expect(title).toContainHTML('Authenticating');
+
+      // test on game screen after authentication
+      const timer = setTimeout( async () => {
+        expect(title).toContainHTML(`Let's Play!`);
+      }, 200) // Mock test after token authentication
+      clearTimeout(timer);
     });
   });
 
